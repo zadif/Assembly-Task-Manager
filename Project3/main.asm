@@ -40,10 +40,10 @@ main PROC
             mov edx,offset str5
             call writeString
             call crlf
-            mov edx,offset str6
+              mov edx,offset str10
             call writeString
             call crlf
-              mov edx,offset str10
+            mov edx,offset str6
             call writeString
             call crlf
             mov edx,offset str7
