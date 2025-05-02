@@ -30,6 +30,9 @@
     <MASM Include="viewAllProcess.asm">
       <Filter>Source Files</Filter>
     </MASM>
+    <MASM Include="OSinfo.asm">
+      <Filter>Source Files</Filter>
+    </MASM>
   </ItemGroup>
   <ItemGroup>
     <None Include="functionHeaders.inc">

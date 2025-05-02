@@ -9,3 +9,4 @@ viewAllProcess PROTO
 BatteryCheck PROTO
 systemSpecs PROTO
 terminateProcess2 PROTO
+displayOsInfo PROTO
