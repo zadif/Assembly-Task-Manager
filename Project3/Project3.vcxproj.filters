@@ -18,7 +18,7 @@
     <MASM Include="main.asm">
       <Filter>Source Files</Filter>
     </MASM>
-    <MASM Include="processor.asm">
+    <MASM Include="terminateProcess.asm">
       <Filter>Source Files</Filter>
     </MASM>
     <MASM Include="battery.asm">

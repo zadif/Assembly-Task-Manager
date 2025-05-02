@@ -8,3 +8,4 @@ INCLUDELIB C:\Windows\System32\kernel32.dll
 viewAllProcess PROTO
 BatteryCheck PROTO
 systemSpecs PROTO
+terminateProcess2 PROTO

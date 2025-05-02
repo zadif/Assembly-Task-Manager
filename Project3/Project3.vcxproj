@@ -133,7 +133,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <FileType>Document</FileType>
     </MASM>
-    <MASM Include="processor.asm" />
+    <MASM Include="terminateProcess.asm" />
     <MASM Include="systemSpecs.asm" />
     <MASM Include="viewAllProcess.asm" />
   </ItemGroup>

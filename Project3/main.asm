@@ -65,7 +65,9 @@ main PROC
     jmp  tag
 
 terminate_proc:
-    ; Placeholder for terminate process functionality
+    ; Placeholder for terminate process 
+    call viewAllProcess
+   call terminateProcess2 
     jmp  tag
 
 battery_health:
@@ -79,6 +81,7 @@ system_specs:
     jmp  tag
 
         tag:
+        call crlf
             mov edx, offset str8
             call writeString
             call crlf
