@@ -33,6 +33,12 @@
     <MASM Include="OSinfo.asm">
       <Filter>Source Files</Filter>
     </MASM>
+    <MASM Include="addresses.asm">
+      <Filter>Source Files</Filter>
+    </MASM>
+    <MASM Include="disk.asm">
+      <Filter>Source Files</Filter>
+    </MASM>
   </ItemGroup>
   <ItemGroup>
     <None Include="functionHeaders.inc">

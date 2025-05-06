@@ -12,11 +12,13 @@ ExitProcess PROTO, dwExitCode:DWORD
     str3 byte "Press 2 to  terminate process",0
     str4 byte "Press 3 to check battery health",0
     str5 byte "Press 4 to  view system specs",0
-    str6 byte "Press 6 to  exit",0
+    str6 byte "Press 7 to  exit",0
     str7 byte "Enter your choice:   ",0
     str8 byte "Want to use task manager again? ",0
     str9 byte "Press 1  to continue , 0 to not  :   ",0
     str10 byte "Press 5 View OS info  and windows running time ",0
+    str11 byte "Press 6 to view all harddisks ",0
+
 
     input1 dd 0
     input2 dd 0
@@ -43,6 +45,9 @@ main PROC
               mov edx,offset str10
             call writeString
             call crlf
+            mov edx,offset str11
+            call writeString
+            call crlf
             mov edx,offset str6
             call writeString
             call crlf
@@ -60,10 +65,14 @@ main PROC
             je battery_health
             cmp eax,4
            je system_specs
+           
             cmp eax,6
-            je exiting
+            je diskInfoTag
             cmp eax,5
             je OSinfo
+            cmp eax,7
+            je exiting
+
 
      view_processes:
     call viewAllProcess
@@ -88,6 +97,11 @@ system_specs:
     OSinfo:
     call displayOsInfo
       jmp  tag
+
+      diskInfoTag:
+      call diskInfo 
+      jmp tag
+
 
         tag:
         call crlf
