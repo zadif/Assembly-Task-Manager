@@ -16,13 +16,13 @@ ENDM
     str3 byte "Press 2 to  terminate process",0
     str4 byte "Press 3 to check battery health",0
     str5 byte "Press 4 to  view system specs",0
-    str6 byte "Press 7 to  exit",0
+    str6 byte "Press 8 to  exit",0
     str7 byte "Enter your choice:   ",0
     str8 byte "Want to use task manager again? ",0
     str9 byte "Press 1  to continue , 0 to not  :   ",0
     str10 byte "Press 5 View OS info  and windows running time ",0
     str11 byte "Press 6 to view all harddisks ",0
-
+    str12 byte "Press 7 information about addresses",0
 
     input1 dd 0
     input2 dd 0
@@ -37,6 +37,8 @@ main PROC
             string_print str5
             string_print str10
             string_print str11
+            string_print str12
+
             string_print str6
             mov edx,offset str7
             call writeString
@@ -57,7 +59,9 @@ main PROC
             je diskInfoTag
             cmp eax,5
             je OSinfo
-            cmp eax,7
+              cmp eax,7
+            je addressing
+            cmp eax,8
             je exiting
 
 
@@ -87,6 +91,10 @@ system_specs:
 
       diskInfoTag:
       call diskInfo 
+      jmp tag
+
+      addressing:
+      call addressesInfo
       jmp tag
 
 

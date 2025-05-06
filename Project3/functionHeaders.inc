@@ -14,3 +14,4 @@ systemSpecs PROTO
 terminateProcess2 PROTO
 displayOsInfo PROTO
 diskInfo PROTO
+addressesInfo PROTO
