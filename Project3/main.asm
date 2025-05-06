@@ -5,7 +5,6 @@ include functionHeaders.inc
 .model flat, stdcall
 .stack 4096
 ExitProcess PROTO, dwExitCode:DWORD
-
 .data
     str1 byte "Following are options which you can perform: ",0
     str2 byte "Press 1 to view all process",0
@@ -25,7 +24,6 @@ ExitProcess PROTO, dwExitCode:DWORD
 
 .code
 main PROC
-
     whileLoop:
             mov edx,offset str1
             call writeString
