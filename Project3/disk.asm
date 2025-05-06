@@ -5,6 +5,7 @@ INCLUDE functionHeaders.inc
 
 GetLogicalDrives PROTO
 GetDiskFreeSpaceExA PROTO :PTR BYTE, :PTR QWORD, :PTR QWORD, :PTR QWORD
+checkStorage PROTO
 
 .data
 drivePath db "A:\", 0
@@ -19,6 +20,13 @@ totalSpace QWORD ?
 freeSpace QWORD ?
 unused QWORD ?
 bytesPerGB QWORD 1073741824 ; 1 GB = 2^30 bytes
+
+lessStorage byte "Storage is less in the drive", 0
+excessStorage byte "Plenty of storage is present in the drive", 0
+gbs byte " GBs", 0
+availableSpace dd 0
+emptySpace dd 0
+
 
 .code
 diskInfo PROC
@@ -73,6 +81,9 @@ check_drive:
     push eax
     call DivideByGB
     call WriteDec
+    mov edx,offset gbs
+    call WriteString
+    mov availableSpace, eax 
     call CrLf
 
     ; Display free space
@@ -84,6 +95,12 @@ check_drive:
     push eax
     call DivideByGB
     call WriteDec
+    mov edx,offset gbs
+    call WriteString
+    mov emptySpace, eax 
+
+    call checkStorage
+
     call CrLf
     call CrLf
     jmp restore_ecx
@@ -139,5 +156,33 @@ DivideByGB PROC
     pop ebp
     ret 8                   ; Clean up 8 bytes (two DWORDs) from stack
 DivideByGB ENDP
+
+checkStorage PROC
+	pushad
+    call crlf
+	; Check if free space is less than 10 GB
+	mov eax, emptySpace
+
+   mov     ecx,100           
+    mul     ecx    
+    mov     ecx, availableSpace      
+    div     ecx                   ; EAX = (availableSpace * 100) / emptySpace
+
+    mov     ecx, eax              ; Store result in ECX
+
+	cmp ecx, 10            ; Compare lower 32 bits with 10 GB
+	jb less_storage
+
+	; If more than 10 GB, print excess storage message
+	mov edx, OFFSET excessStorage
+	call WriteString
+	jmp done_check
+less_storage:
+	mov edx, OFFSET lessStorage
+	call WriteString
+done_check:
+	popad
+	ret
+checkStorage ENDP
 
 END
