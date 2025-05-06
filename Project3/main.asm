@@ -5,6 +5,11 @@ include functionHeaders.inc
 .model flat, stdcall
 .stack 4096
 ExitProcess PROTO, dwExitCode:DWORD
+string_print MACRO str1
+   mov edx, offset str1
+   call WriteString
+   call Crlf
+ENDM
 .data
     str1 byte "Following are options which you can perform: ",0
     str2 byte "Press 1 to view all process",0
@@ -25,30 +30,14 @@ ExitProcess PROTO, dwExitCode:DWORD
 .code
 main PROC
     whileLoop:
-            mov edx,offset str1
-            call writeString
-            call crlf
-            mov edx,offset str2
-            call writeString
-            call crlf
-            mov edx,offset str3
-            call writeString
-            call crlf
-            mov edx,offset str4
-            call writeString
-            call crlf
-            mov edx,offset str5
-            call writeString
-            call crlf
-              mov edx,offset str10
-            call writeString
-            call crlf
-            mov edx,offset str11
-            call writeString
-            call crlf
-            mov edx,offset str6
-            call writeString
-            call crlf
+            string_print str1
+            string_print str2
+            string_print str3
+            string_print str4
+            string_print str5
+            string_print str10
+            string_print str11
+            string_print str6
             mov edx,offset str7
             call writeString
             call readInt
@@ -103,9 +92,7 @@ system_specs:
 
         tag:
         call crlf
-            mov edx, offset str8
-            call writeString
-            call crlf
+            string_print str8
             mov edx, offset str9
             call writeString
             call readInt

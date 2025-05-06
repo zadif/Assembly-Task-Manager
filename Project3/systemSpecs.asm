@@ -11,7 +11,10 @@ GlobalMemoryStatusEx PROTO :DWORD
 GetVersion PROTO
 GetDiskFreeSpaceExA PROTO :DWORD,:DWORD,:DWORD,:DWORD
 GetTickCount PROTO
-
+string_print MACRO str1
+  mov edx,offset str1
+  call WriteString
+ENDM
 .data
 cpuBrand    db "CPU: ",0
 cpuName     db 49 dup(0)
@@ -26,8 +29,7 @@ totalMem    dq ?
 .code
 systemSpecs PROC
     ; Get CPU information
-    mov edx, OFFSET cpuBrand
-    call WriteString
+    string_print cpuBrand
     
     ; Get CPU brand string
     mov eax, 80000002h
@@ -51,13 +53,11 @@ systemSpecs PROC
     mov DWORD PTR [cpuName+40], ecx
     mov DWORD PTR [cpuName+44], edx
     
-    mov edx, OFFSET cpuName
-    call WriteString
+    string_print cpuName
     call Crlf
 
     ; Get RAM size
-    mov edx, OFFSET ramStr
-    call WriteString
+    string_print ramStr
     invoke GlobalMemoryStatusEx, ADDR totalMem
     mov eax, DWORD PTR [totalMem]
     xor edx, edx
@@ -66,8 +66,7 @@ systemSpecs PROC
     call Crlf
 
     ; Get OS version
-    mov edx, OFFSET osStr
-    call WriteString
+    string_print osStr
     invoke GetVersion
     shr eax, 8
     and eax, 0FFh
@@ -75,8 +74,7 @@ systemSpecs PROC
     call Crlf
 
     ; Get disk space
-    mov edx, OFFSET diskStr
-    call WriteString
+    string_print diskStr
     invoke GetDiskFreeSpaceExA, ADDR drive, 0, ADDR totalMem, 0
     mov eax, DWORD PTR [totalMem]
     xor edx, edx
@@ -85,8 +83,7 @@ systemSpecs PROC
     call Crlf
 
     ; Get uptime
-    mov edx, OFFSET uptimeStr
-    call WriteString
+    string_print uptimeStr
     invoke GetTickCount
     mov ebx, 3600000
     xor edx, edx

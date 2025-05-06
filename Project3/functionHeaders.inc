@@ -2,8 +2,7 @@
 INCLUDE C:\Irvine\Irvine32.inc     
 INCLUDELIB C:\Irvine\Irvine32.lib     
 
-INCLUDELIB "C:\Program Files (x86)\Windows Kits\10\Lib\10.0.22621.0\um\x86\kernel32.Lib" ; Kernel32 (GetDriveType, etc.)  **USE THIS!**
-
+INCLUDELIB "C:\Program Files (x86)\Windows Kits\10\Lib\10.0.22621.0\um\x86\kernel32.Lib" 
 
 
 

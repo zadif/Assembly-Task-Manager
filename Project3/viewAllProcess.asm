@@ -8,7 +8,10 @@ CreateToolhelp32Snapshot PROTO, :DWORD,:DWORD
 Process32First PROTO, :DWORD,:DWORD
 Process32Next PROTO, :DWORD,:DWORD
 CloseHandle PROTO, :DWORD
-
+printstr MACRO str1
+  mov edx, offset str1
+  call WriteString
+ENDM
 .data
 snap   dd 0
 pe     db 556 dup(0)  ; PROCESSENTRY32 buffer
@@ -33,14 +36,12 @@ viewAllProcess proc
 
 show:
     ; Display PID (offset 8)
-    mov edx, offset pText
-    call WriteString
+    printstr pText
     mov eax, dword ptr [pe+8]  ; FIXED: Added DWORD PTR
     call WriteDec
 
     ; Display EXE name (offset 36)
-    mov edx, offset eText
-    call WriteString
+    printstr eText
     lea edx, [pe+36]  ; szExeFile offset
     call WriteString
     call Crlf

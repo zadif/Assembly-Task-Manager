@@ -6,7 +6,10 @@ INCLUDE functionHeaders.inc
 GetLogicalDrives PROTO
 GetDiskFreeSpaceExA PROTO :PTR BYTE, :PTR QWORD, :PTR QWORD, :PTR QWORD
 checkStorage PROTO
-
+str_print MACRO str1
+  mov edx,offset str1
+  call WriteString
+ENDM
 .data
 drivePath db "A:\", 0
 msg1 db "Available Drives and Storage Info (in GB):", 0Dh, 0Ah, 0
@@ -32,8 +35,7 @@ emptySpace dd 0
 diskInfo PROC
     pushad
     ; Display header
-    mov edx, OFFSET msg1
-    call WriteString
+    str_print msg1
 
     ; Get logical drives bitmask
     INVOKE GetLogicalDrives
@@ -63,8 +65,7 @@ check_drive:
     mov drivePath+3, 0      ; Null terminator
 
     ; Print drive name
-    mov edx, OFFSET drivePath
-    call WriteString
+    str_print drivePath
     call CrLf
 
     ; Call GetDiskFreeSpaceExA
@@ -73,22 +74,19 @@ check_drive:
     je error_space
 
     ; Display total space
-    mov edx, OFFSET msgTotal
-    call WriteString
+    str_print msgTotal
     mov eax, DWORD PTR totalSpace
     mov edx, DWORD PTR totalSpace + 4
     push edx
     push eax
     call DivideByGB
     call WriteDec
-    mov edx,offset gbs
-    call WriteString
+    str_print gbs
     mov availableSpace, eax 
     call CrLf
 
     ; Display free space
-    mov edx, OFFSET msgFree
-    call WriteString
+    str_print msgFree
     mov eax, DWORD PTR freeSpace
     mov edx, DWORD PTR freeSpace + 4
     push edx
@@ -107,15 +105,11 @@ check_drive:
 
 error_space:
     ; Display error message for failed disk space query
-    mov edx, OFFSET msgTotal
-    call WriteString
-    mov edx, OFFSET msgError
-    call WriteString
+    str_print msgTotal
+    str_print msgError
     call CrLf
-    mov edx, OFFSET msgFree
-    call WriteString
-    mov edx, OFFSET msgError
-    call WriteString
+    str_print msgFree
+    str_print msgError
     call CrLf
     call CrLf
 

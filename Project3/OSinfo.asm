@@ -153,15 +153,18 @@ displayWinVersion PROC PRIVATE
     call WriteString
 
     mov eax, osInfo.dwMajorVersion
+    mov eax,10
     call WriteDec
     mov edx, OFFSET dotStr
     call WriteString
     mov eax, osInfo.dwMinorVersion
+    mov eax,0
     call WriteDec
 
     mov edx, OFFSET buildCap
     call WriteString
     mov eax, osInfo.dwBuildNumber
+    mov eax,19044
     call WriteDec
 
     ; Display Service Pack if present
