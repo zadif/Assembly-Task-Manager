@@ -59,7 +59,7 @@ _nextAdapter:
     mov     edx, OFFSET macLabel
     call    WriteString
 
-    ; AddressLength @ offset +400, Address @ +404
+    ; AddressLength offset +400, Address  +404
     mov     ecx, [esi + 400]    ; Load AddressLength
     cmp     ecx, 6              ; Check if length is reasonable (standard MAC is 6 bytes)
     jbe     _macLengthOk        ; If <= 6, proceed
@@ -115,9 +115,6 @@ _err:
 addressesInfo ENDP
 
 END
-
-
-
 
 
 

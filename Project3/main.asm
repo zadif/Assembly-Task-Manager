@@ -10,6 +10,7 @@ string_print MACRO str1
    call WriteString
    call Crlf
 ENDM
+EXTERN system:PROC
 .data
     str1 byte "Following are options which you can perform: ",0
     str2 byte "Press 1 to view all process",0
@@ -23,12 +24,15 @@ ENDM
     str10 byte "Press 5 View OS info  and windows running time ",0
     str11 byte "Press 6 to view all harddisks ",0
     str12 byte "Press 7 information about addresses",0
+    clearScreenCmd db "cls",0
 
     input1 dd 0
     input2 dd 0
 
 .code
 main PROC
+ push offset clearScreenCmd
+    call system
     whileLoop:
             string_print str1
             string_print str2
@@ -108,6 +112,10 @@ system_specs:
             call crlf
 
             cmp input2,1
+
+
+
+
             je whileLoop
 
        exiting: 
