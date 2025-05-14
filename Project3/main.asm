@@ -111,8 +111,9 @@ system_specs:
             je whileLoop
 
        exiting: 
-
-    INVOKE ExitProcess, 0
+        mov ah, 4Ch
+        mov al, 0  ; Exit code 0
+        int 21h
 main ENDP
 
 
